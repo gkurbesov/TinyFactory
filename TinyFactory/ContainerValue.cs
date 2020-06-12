@@ -16,7 +16,7 @@ namespace TinyFactory
         /// <summary>
         /// Reference of instance 
         /// </summary>
-        internal object RawValue = null;
+        internal object Instance = null;
         /// <summary>
         /// Instance recreation flag
         /// </summary>
@@ -25,9 +25,9 @@ namespace TinyFactory
         public void Dispose()
         {
             ValueType = null;
-            if (RawValue is IDisposable todispose)
+            if (Instance is IDisposable todispose)
                 todispose?.Dispose();
-            RawValue = null;
+            Instance = null;
         }
         /// <summary>
         /// Get instance from container
@@ -36,15 +36,17 @@ namespace TinyFactory
         /// <returns></returns>
         internal T GetValue<T>()
         {
-            if (Rebuild && RawValue != null)
+            if (Rebuild)
             {
-                if (RawValue is IDisposable todispose)
-                    todispose?.Dispose();
-                RawValue = null;
+                var instance = Activator.CreateInstance(ValueType);
+                return (T)instance;
             }
-            if (RawValue == null)
-                RawValue = Activator.CreateInstance(ValueType);
-            return (T)RawValue;
+            else
+            {
+                if (Instance == null)
+                    Instance = Activator.CreateInstance(ValueType);
+                return (T)Instance;
+            }            
         }
     }
 }

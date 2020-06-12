@@ -23,7 +23,7 @@ namespace TinyFactory
             var value = new ContainerValue()
             {
                 ValueType = type,
-                RawValue = obj,
+                Instance = obj,
                 Rebuild = rebuild
             };
             if (!values.TryAdd(type, value))
