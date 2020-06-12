@@ -35,14 +35,14 @@ namespace TinyFactory.Test
         public void RegistrNoConstructorTest()
         {
             var ex = Assert.Throws<Exception>(() => Register<ExampleNoConstructor>());
-            Assert.Equal("The class type must contain an empty public constructor or using Singlton<T>(T value)", ex.Message);
+            Assert.Equal("The class type must contain an empty public constructor or using Singleton<T>(T value)", ex.Message);
         }
 
         [Fact]
         public void RegistrNoConstructorTest2()
         {
             var ex = Assert.Throws<Exception>(() => Singleton<ExampleNoConstructor>());
-            Assert.Equal("The class type must contain an empty public constructor or using Singlton<T>(T value)", ex.Message);
+            Assert.Equal("The class type must contain an empty public constructor or using Singleton<T>(T value)", ex.Message);
         }
 
         [Fact]
