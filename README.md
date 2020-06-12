@@ -37,3 +37,5 @@ Console.WriteLine($"User name: {user.Name}");
 ```
 
 See more in demo project
+
+[![Build status](https://ci.appveyor.com/api/projects/status/nvc5fkh3ua9j0mve?svg=true)](https://ci.appveyor.com/project/gkurbesov/tinyfactory)
