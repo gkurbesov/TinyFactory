@@ -34,7 +34,7 @@ namespace TinyFactory.Test
         [Fact]
         public void GetSingltonTest()
         {
-            Singlton<TimeStringClass>();
+            Singleton<TimeStringClass>();
 
             var a = Get<TimeStringClass>();
             Thread.Sleep(1000);
@@ -47,7 +47,7 @@ namespace TinyFactory.Test
         public void GetSingltonTest2()
         {
             var num = new Random().Next(0, 1000);
-            Singlton(ExampleNoConstructor.Build(num));
+            Singleton(ExampleNoConstructor.Build(num));
 
             var a = Get<ExampleNoConstructor>();
 

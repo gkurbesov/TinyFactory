@@ -48,7 +48,7 @@ namespace TinyFactory
         private void ConstructorExist(Type type)
         {
             if (type.GetConstructor(Type.EmptyTypes) == null)
-                throw new Exception("The class type must contain an empty public constructor or using Singlton<T>(T value)");
+                throw new Exception("The class type must contain an empty public constructor or using Singleton<T>(T value)");
         }
         /// <summary>
         /// Registers a class type. This type of class will be recreated with every resolve.
@@ -62,10 +62,10 @@ namespace TinyFactory
             AddToValues(insert_type, null, true);
         }
         /// <summary>
-        ///  Registers a class type as singlton
+        ///  Registers a class type as singleton
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        protected void Singlton<T>() where T : class
+        protected void Singleton<T>() where T : class
         {
             var insert_type = typeof(T);
             ContainsType(insert_type);
@@ -77,7 +77,7 @@ namespace TinyFactory
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
-        protected void Singlton<T>(T value) where T : class
+        protected void Singleton<T>(T value) where T : class
         {
             var insert_type = typeof(T);
             ContainsType(insert_type);

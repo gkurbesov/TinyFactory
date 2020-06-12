@@ -11,7 +11,7 @@ namespace TinyFactory.Demo
         private  Factory()
         {
             Register<RandomNumber>();
-            Singlton(new UserClass("John"));
+            Singleton(new UserClass("John"));
         }
 
         private static Factory GetFactory()

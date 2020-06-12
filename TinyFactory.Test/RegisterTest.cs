@@ -20,14 +20,14 @@ namespace TinyFactory.Test
         [Fact]
         public void DuplicateTypeTest2()
         {
-            var ex = Assert.Throws<Exception>(() => Singlton<ExampleClass>());
+            var ex = Assert.Throws<Exception>(() => Singleton<ExampleClass>());
             Assert.Equal("This class type has been registered to the factory before", ex.Message);
         }
 
         [Fact]
         public void DuplicateTypeTest3()
         {
-            var ex = Assert.Throws<Exception>(() => Singlton(new ExampleClass()));
+            var ex = Assert.Throws<Exception>(() => Singleton(new ExampleClass()));
             Assert.Equal("This class type has been registered to the factory before", ex.Message);
         }
 
@@ -41,7 +41,7 @@ namespace TinyFactory.Test
         [Fact]
         public void RegistrNoConstructorTest2()
         {
-            var ex = Assert.Throws<Exception>(() => Singlton<ExampleNoConstructor>());
+            var ex = Assert.Throws<Exception>(() => Singleton<ExampleNoConstructor>());
             Assert.Equal("The class type must contain an empty public constructor or using Singlton<T>(T value)", ex.Message);
         }
 
