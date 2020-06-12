@@ -1,7 +1,7 @@
 # TinyFactory ![](./Assets/icon.png)
-
-![](./Assets/logo.png)
-
+<p align="center">
+    <img src="./Assets/logo.png">
+</p>
 Small and simple factory. TinyFactory is ready to store and create instances of simple classes that have no dependencies in the constructor.
 This factory can create new instances of classes or store their references to them.
 
