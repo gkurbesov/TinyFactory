@@ -14,7 +14,7 @@ public class Factory : TinyFactory
     private static object locker = new object();
     private  Factory()
     {
-        Singlton(new UserClass("John"));
+        Singleton(new UserClass("John"));
     }
 
     private static Factory GetFactory()
