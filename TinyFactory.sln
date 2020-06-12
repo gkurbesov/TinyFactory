@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29926.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinyFactory", "TinyFactory\TinyFactory.csproj", "{0CD96BAC-9D72-496B-8D62-5972304D2358}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TinyFactory", "TinyFactory\TinyFactory.csproj", "{0CD96BAC-9D72-496B-8D62-5972304D2358}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinyFactory.Test", "TinyFactory.Test\TinyFactory.Test.csproj", "{415AAAFB-CC73-41DB-8110-CD4256C8A7A7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{0CD96BAC-9D72-496B-8D62-5972304D2358}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0CD96BAC-9D72-496B-8D62-5972304D2358}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0CD96BAC-9D72-496B-8D62-5972304D2358}.Release|Any CPU.Build.0 = Release|Any CPU
+		{415AAAFB-CC73-41DB-8110-CD4256C8A7A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{415AAAFB-CC73-41DB-8110-CD4256C8A7A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{415AAAFB-CC73-41DB-8110-CD4256C8A7A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{415AAAFB-CC73-41DB-8110-CD4256C8A7A7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
