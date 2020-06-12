@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TinyFactory", "TinyFactory\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinyFactory.Test", "TinyFactory.Test\TinyFactory.Test.csproj", "{415AAAFB-CC73-41DB-8110-CD4256C8A7A7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinyFactory.Demo", "TinyFactory.Demo\TinyFactory.Demo.csproj", "{44105F37-DE68-4324-8A95-54920AE4C187}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{415AAAFB-CC73-41DB-8110-CD4256C8A7A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{415AAAFB-CC73-41DB-8110-CD4256C8A7A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{415AAAFB-CC73-41DB-8110-CD4256C8A7A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44105F37-DE68-4324-8A95-54920AE4C187}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44105F37-DE68-4324-8A95-54920AE4C187}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44105F37-DE68-4324-8A95-54920AE4C187}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44105F37-DE68-4324-8A95-54920AE4C187}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
