@@ -5,6 +5,9 @@
 Small and simple factory. TinyFactory is ready to store and create instances of simple classes that have no dependencies in the constructor.
 This factory can create new instances of classes or store their references to them.
 
+
+[![Build status](https://ci.appveyor.com/api/projects/status/nvc5fkh3ua9j0mve?svg=true)](https://ci.appveyor.com/project/gkurbesov/tinyfactory)
+
 ## Quick start
 Create your a class factory and extend from `TinyFactory`:
 ```C#
@@ -38,4 +41,3 @@ Console.WriteLine($"User name: {user.Name}");
 
 See more in demo project
 
-[![Build status](https://ci.appveyor.com/api/projects/status/nvc5fkh3ua9j0mve?svg=true)](https://ci.appveyor.com/project/gkurbesov/tinyfactory)
