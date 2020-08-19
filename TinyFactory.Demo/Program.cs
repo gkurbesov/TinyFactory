@@ -20,13 +20,13 @@ namespace TinyFactory.Demo
 
             Console.WriteLine("five transient queries:");
             for (int i = 0; i < 5; i++)
-                Console.WriteLine($"get {i} = {Factory.Resolve<IRepositoryConfig>().ConnectionString}");
+                Console.WriteLine($"get {i} = {Factory.Resolve<Config>().ConnectionString}");
 
             Console.WriteLine("\r\n");
 
 
-            Console.WriteLine("Get repo again and print list");
-            var repo2 = Factory.Resolve<UserRepository>();
+            Console.WriteLine("Get repo as interface and print list");
+            var repo2 = Factory.Resolve<IRepository>();
             Console.WriteLine($"Config of repo = {repo2.GetConnectionString()}\r\n");
 
             foreach (var user in repo2.GetAll())
