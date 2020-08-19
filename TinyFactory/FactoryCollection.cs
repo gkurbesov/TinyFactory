@@ -8,7 +8,7 @@ namespace TinyFactory
     class FactoryCollection : IFactoryCollection
     {
         private List<ServiceDescriptor> collection = new List<ServiceDescriptor>();
-        private bool IsBuild = false;
+        public bool IsBuild { get; private set; } = false;
 
         public int Count => collection.Count;
         public bool IsReadOnly => IsBuild;
