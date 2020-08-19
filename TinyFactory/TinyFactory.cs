@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Linq;
 
 namespace TinyFactory
 {
@@ -26,9 +27,15 @@ namespace TinyFactory
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public T Get<T>() where T : class
+        public T Get<T>() where T : class => 
+            (T)Get(typeof(T));
+
+        public object Get(Type type)
         {
-            return null;
+            if (!collections.IsBuild)
+                throw new Exception("TinyFactory is not configured");
+            var descriptor = collections.FirstOrDefault(o => o.ImplementationType.Equals(type) || o.ServiceType.Equals(type));
+            return descriptor?.Resolve(this);
         }
 
         #region deprecated
@@ -66,6 +73,6 @@ namespace TinyFactory
         [Obsolete("Remove ​​is deprecated", true)]
         protected void Remove<T>() { }
         #endregion
-       
+
     }
 }
