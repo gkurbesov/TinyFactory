@@ -22,9 +22,6 @@ namespace TinyFactory
         /// </summary>
         /// <param name="collection"></param>
         protected abstract void ConfigureFactory(IFactoryCollection collection);
-
-
-
         /// <summary>
         /// Get type instance from factory
         /// </summary>
@@ -44,7 +41,6 @@ namespace TinyFactory
             var descriptor = collections.FirstOrDefault(o => o.ImplementationType.Equals(type) || o.ServiceType.Equals(type));
             return descriptor?.Resolve(this);
         }
-
         #region deprecated
         /// <summary>
         /// Puts objects in a dictionary
@@ -80,6 +76,5 @@ namespace TinyFactory
         [Obsolete("Remove ​​is deprecated", true)]
         protected void Remove<T>() { }
         #endregion
-
     }
 }
