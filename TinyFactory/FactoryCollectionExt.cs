@@ -26,21 +26,21 @@ namespace TinyFactory
             return collection;
         }
 
-        public static IFactoryCollection AddSingleton<TService, TImpl>(this IFactoryCollection collection) where TService : class
+        public static IFactoryCollection AddSingleton<TService, TImpl>(this IFactoryCollection collection) where TService : class where TImpl : class, TService
         {
             if (collection.AllowAddServiceToCollection<TService, TImpl>())
                 collection.Add(ServiceDescriptor.Singleton<TService, TImpl>());
             return collection;
         }
 
-        public static IFactoryCollection RegisterType<TService>(this IFactoryCollection collection) where TService : class
+        public static IFactoryCollection AddTransient<TService>(this IFactoryCollection collection) where TService : class
         {
             if (collection.AllowAddServiceToCollection<TService>())
                 collection.Add(ServiceDescriptor.Transient<TService>());
             return collection;
         }
 
-        public static IFactoryCollection RegisterType<TService, TImpl>(this IFactoryCollection collection) where TService : class
+        public static IFactoryCollection AddTransient<TService, TImpl>(this IFactoryCollection collection) where TService : class where TImpl : class, TService
         {
             if (collection.AllowAddServiceToCollection<TService, TImpl>())
                 collection.Add(ServiceDescriptor.Transient<TService, TImpl>());
@@ -71,7 +71,7 @@ namespace TinyFactory
             o.ServiceType.Equals(typeof(TImpl)) || o.ImplementationType.Equals(typeof(TImpl))) != null)
                 throw new Exception("This type of service has been registered to the factory before");
 
-            var constructors = typeof(TService).GetConstructors();
+            var constructors = typeof(TImpl).GetConstructors();
             if (constructors == null || constructors.Length == 0)
                 throw new Exception("This type of service has no public constructors");
 

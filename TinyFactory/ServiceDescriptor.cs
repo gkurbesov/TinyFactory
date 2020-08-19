@@ -28,7 +28,7 @@ namespace TinyFactory
         public static ServiceDescriptor Singleton<TService>() where TService : class =>
             new ServiceDescriptor(typeof(TService), ServiceLifetime.Singleton);
 
-        public static ServiceDescriptor Singleton<TService, TImpl>() where TService : class =>
+        public static ServiceDescriptor Singleton<TService, TImpl>() where TService : class where TImpl: class, TService =>
             new ServiceDescriptor(typeof(TService), typeof(TImpl), ServiceLifetime.Singleton);
 
         public static ServiceDescriptor Singleton<TService>(object value) where TService : class =>
@@ -37,7 +37,7 @@ namespace TinyFactory
         public static ServiceDescriptor Transient<TService>() where TService : class =>
           new ServiceDescriptor(typeof(TService), ServiceLifetime.Transient);
 
-        public static ServiceDescriptor Transient<TService, TImpl>() where TService : class =>
+        public static ServiceDescriptor Transient<TService, TImpl>() where TService : class where TImpl : class, TService =>
             new ServiceDescriptor(typeof(TService), typeof(TImpl), ServiceLifetime.Transient);
     }
 }
