@@ -5,7 +5,8 @@ using System.Text;
 
 namespace TinyFactory
 {
-    public interface IFactoryCollection : ICollection<ServiceDescriptor>, IEnumerable<ServiceDescriptor>, IEnumerable, IList<ServiceDescriptor>
+    public interface IFactoryCollection : ICollection<ServiceDescriptor>
     {
+        IFactoryCollection Build();
     }
 }
