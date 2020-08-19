@@ -8,6 +8,12 @@ namespace TinyFactory
 {
     internal static class ServiceDescriptorExt
     {
+        /// <summary>
+        /// Method for getting an instance of a type
+        /// </summary>
+        /// <param name="descriptor"></param>
+        /// <param name="provider"></param>
+        /// <returns></returns>
         public static object Resolve(this ServiceDescriptor descriptor, IFactoryProvider provider)
         {
             switch (descriptor.Lifetime)
@@ -22,6 +28,12 @@ namespace TinyFactory
             }
         }
 
+        /// <summary>
+        /// Creates a new instance
+        /// </summary>
+        /// <param name="descriptor"></param>
+        /// <param name="provider"></param>
+        /// <returns></returns>
         private static object GetInstance(this ServiceDescriptor descriptor, IFactoryProvider provider)
         {
             ConstructorInfo item = descriptor.ImplementationType.GetConstructors().FirstOrDefault(o => o.IsPublic && !o.IsStatic);

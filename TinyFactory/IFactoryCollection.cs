@@ -7,7 +7,14 @@ namespace TinyFactory
 {
     public interface IFactoryCollection : ICollection<ServiceDescriptor>
     {
-        bool IsBuild { get;}
+        /// <summary>
+        /// True - if the collection is complete to use
+        /// </summary>
+        bool IsBuild { get; }
+        /// <summary>
+        /// Fixing and building a collection of types
+        /// </summary>
+        /// <returns></returns>
         IFactoryCollection Build();
     }
 }

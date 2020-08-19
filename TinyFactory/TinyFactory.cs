@@ -17,7 +17,10 @@ namespace TinyFactory
             ConfigureFactory(collections);
             collections.Build();
         }
-
+        /// <summary>
+        /// Factory configuration method
+        /// </summary>
+        /// <param name="collection"></param>
         protected abstract void ConfigureFactory(IFactoryCollection collection);
 
 
@@ -29,7 +32,11 @@ namespace TinyFactory
         /// <returns></returns>
         public T Get<T>() where T : class => 
             (T)Get(typeof(T));
-
+        /// <summary>
+        /// Get type instance from factory
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
         public object Get(Type type)
         {
             if (!collections.IsBuild)
