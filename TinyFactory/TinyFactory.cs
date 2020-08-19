@@ -6,7 +6,7 @@ namespace TinyFactory
     /// <summary>
     ///  TinyFactory container
     /// </summary>
-    public abstract class TinyFactory
+    public abstract class TinyFactory : IFactoryProvider
     {
         private readonly IFactoryCollection collections;
 
