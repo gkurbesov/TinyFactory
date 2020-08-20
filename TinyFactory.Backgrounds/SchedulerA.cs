@@ -6,23 +6,21 @@ using System.Threading.Tasks;
 
 namespace TinyFactory.Backgrounds
 {
-    public class SchedulerA : BackgroundService
+    public class SchedulerA : LoopService
     {
         private int count = 0;
 
-        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+        protected override TimeSpan LoopDelay { get; set; } = TimeSpan.FromSeconds(2.5);
+
+        protected override async Task<bool> ExecuteAsync(CancellationToken stoppingToken)
         {
-            while(!stoppingToken.IsCancellationRequested)
-            {
-                count = count + 1;
+            count = count + 1;
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("SchedulerA: ");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.WriteLine($"count = {count}");
 
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write("SchedulerA: ");
-                Console.ForegroundColor = ConsoleColor.Gray;
-                Console.WriteLine($"count = {count}");
-
-                await Task.Delay(TimeSpan.FromSeconds(5));
-            }
+            return count < 10;
         }
     }
 }
