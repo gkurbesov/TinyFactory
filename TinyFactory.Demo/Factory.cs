@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using TinyFactory.Demo.Example;
 
 namespace TinyFactory.Demo
 {
@@ -8,13 +9,15 @@ namespace TinyFactory.Demo
     {
         private static Factory _instace;
         private static object locker = new object();
-        private  Factory()
+        private Factory() : base() { }
+
+        protected override void ConfigureFactory(IFactoryCollection collection)
         {
-            Register<RandomNumber>();
-            Singleton(new UserClass("John"));
+            collection.AddSingleton<IRepository, UserRepository>();
+            collection.AddTransient<IRepositoryConfig, Config>();
         }
 
-        private static Factory GetFactory()
+        public static Factory GetFactory()
         {
             lock(locker)
             {
@@ -24,5 +27,6 @@ namespace TinyFactory.Demo
         }
 
         public static T Resolve<T>() where T: class => GetFactory().Get<T>();
+
     }
 }
