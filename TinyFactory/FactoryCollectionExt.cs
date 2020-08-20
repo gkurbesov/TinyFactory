@@ -20,7 +20,7 @@ namespace TinyFactory
             if (instance == null)
                 throw new ArgumentNullException("Singleton instance cannot be null");
 
-            if (collection.AllowAddServiceToCollection<TService>())
+            if (collection.AllowAddServiceToCollection<TService>(instance.GetType()))
                 collection.Add(ServiceDescriptor.Singleton<TService>());
 
             return collection;
@@ -56,6 +56,21 @@ namespace TinyFactory
                 throw new Exception("This type of service has been registered to the factory before");
 
             var constructors = typeof(TService).GetConstructors();
+            if (constructors == null || constructors.Length == 0)
+                throw new Exception("This type of service has no public constructors");
+
+            return true;
+        }
+
+        internal static bool AllowAddServiceToCollection<TService>(this IFactoryCollection collection, Type imptType)
+        {
+            if (collection.IsReadOnly)
+                throw new InvalidOperationException("You cannot add to collection. Factory Collection is read-only");
+
+            if (collection.FirstOrDefault(o => o.ServiceType.Equals(typeof(TService))) != null)
+                throw new Exception("This type of service has been registered to the factory before");
+
+            var constructors = imptType.GetConstructors();
             if (constructors == null || constructors.Length == 0)
                 throw new Exception("This type of service has no public constructors");
 

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace TinyFactory
 {
-    class FactoryCollection : IFactoryCollection
+    public class FactoryCollection : IFactoryCollection
     {
         /// <summary>
         /// list of all types

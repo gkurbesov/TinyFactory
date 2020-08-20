@@ -6,7 +6,7 @@ using System.Text;
 
 namespace TinyFactory
 {
-    internal static class ServiceDescriptorExt
+    public static class ServiceDescriptorExt
     {
         /// <summary>
         /// Method for getting an instance of a type
@@ -34,7 +34,7 @@ namespace TinyFactory
         /// <param name="descriptor"></param>
         /// <param name="provider"></param>
         /// <returns></returns>
-        private static object GetInstance(this ServiceDescriptor descriptor, IFactoryProvider provider)
+        public static object GetInstance(this ServiceDescriptor descriptor, IFactoryProvider provider)
         {
             ConstructorInfo item = descriptor.ImplementationType.GetConstructors().FirstOrDefault(o => o.IsPublic && !o.IsStatic);
             if(item != null)
