@@ -47,6 +47,26 @@ namespace TinyFactory
             return collection;
         }
 
+
+        public static IFactoryCollection AddHostedService<TService>(this IFactoryCollection collection) where TService : class, IHostedService
+        {
+            if (collection.AllowAddServiceToCollection<TService>())
+                collection.Add(ServiceDescriptor.HostedService<TService>());
+            return collection;
+        }
+
+        public static IFactoryCollection AddHostedService<TService>(this IFactoryCollection collection, TService instance) where TService : class, IHostedService
+        {
+            if (instance == null)
+                throw new ArgumentNullException("HostedService instance cannot be null");
+
+            if (collection.AllowAddServiceToCollection<TService>(instance.GetType()))
+                collection.Add(ServiceDescriptor.HostedService<TService>());
+
+            return collection;
+        }
+
+
         internal static bool AllowAddServiceToCollection<TService>(this IFactoryCollection collection)
         {
             if (collection.IsReadOnly)

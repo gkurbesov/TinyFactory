@@ -39,5 +39,8 @@ namespace TinyFactory
 
         public static ServiceDescriptor Transient<TService, TImpl>() where TService : class where TImpl : class, TService =>
             new ServiceDescriptor(typeof(TService), typeof(TImpl), ServiceLifetime.Transient);
+
+        public static ServiceDescriptor HostedService<TService>() where TService : class, IHostedService =>
+            new ServiceDescriptor(typeof(TService), typeof(TService), ServiceLifetime.HostedService);
     }
 }
