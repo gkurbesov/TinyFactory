@@ -5,9 +5,11 @@ VisualStudioVersion = 16.0.29926.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TinyFactory", "TinyFactory\TinyFactory.csproj", "{0CD96BAC-9D72-496B-8D62-5972304D2358}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinyFactory.Test", "TinyFactory.Test\TinyFactory.Test.csproj", "{415AAAFB-CC73-41DB-8110-CD4256C8A7A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TinyFactory.Test", "TinyFactory.Test\TinyFactory.Test.csproj", "{415AAAFB-CC73-41DB-8110-CD4256C8A7A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinyFactory.Demo", "TinyFactory.Demo\TinyFactory.Demo.csproj", "{44105F37-DE68-4324-8A95-54920AE4C187}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TinyFactory.Demo", "TinyFactory.Demo\TinyFactory.Demo.csproj", "{44105F37-DE68-4324-8A95-54920AE4C187}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinyFactory.Backgrounds", "TinyFactory.Backgrounds\TinyFactory.Backgrounds.csproj", "{2033EDFF-8E23-4963-8CE4-20255B23FACA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{44105F37-DE68-4324-8A95-54920AE4C187}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44105F37-DE68-4324-8A95-54920AE4C187}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44105F37-DE68-4324-8A95-54920AE4C187}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2033EDFF-8E23-4963-8CE4-20255B23FACA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2033EDFF-8E23-4963-8CE4-20255B23FACA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2033EDFF-8E23-4963-8CE4-20255B23FACA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2033EDFF-8E23-4963-8CE4-20255B23FACA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
