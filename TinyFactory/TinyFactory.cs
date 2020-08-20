@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Linq;
+using System.Threading;
 
 namespace TinyFactory
 {
@@ -10,12 +11,27 @@ namespace TinyFactory
     public abstract class TinyFactory : IFactoryProvider
     {
         private readonly IFactoryCollection collections;
-
+        private readonly CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         public TinyFactory()
         {
             collections = new FactoryCollection();
+
             ConfigureFactory(collections);
             collections.Build();
+
+            StartHostedServices();
+        }
+        private void StartHostedServices()
+        {
+            var descriptors = collections.Where(o => o.Lifetime == ServiceLifetime.HostedService);
+            foreach(var descriptor in descriptors)
+            {
+                var instance = descriptor.Resolve(this);
+                if(instance is IHostedService service)
+                {
+                    service.StartAsync(cancellationTokenSource.Token);
+                }
+            }
         }
         /// <summary>
         /// Factory configuration method
