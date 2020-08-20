@@ -21,6 +21,7 @@ namespace TinyFactory
                 case ServiceLifetime.Transient:
                     return descriptor.GetInstance(provider);
                 case ServiceLifetime.Singleton:
+                case ServiceLifetime.HostedService:
                     return descriptor.ImplementationInstance ??
                         (descriptor.ImplementationInstance = descriptor.GetInstance(provider));
                 default:
