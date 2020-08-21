@@ -10,5 +10,6 @@ namespace TinyFactory
         Transient = 0x02,
         HostedService = 0x03,
         BroadcastService = 0x04,
+        FirstLoader = 0x05,
     }
 }
