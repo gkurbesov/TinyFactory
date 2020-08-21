@@ -20,8 +20,8 @@ namespace TinyFactory
             if (instance == null)
                 throw new ArgumentNullException("Singleton instance cannot be null");
 
-            if (collection.AllowAddServiceToCollection<TService>(instance.GetType()))
-                collection.Add(ServiceDescriptor.Singleton<TService>());
+            if (collection.AllowAddServiceToCollection<TService>(instance.GetType(), true))
+                collection.Add(ServiceDescriptor.Singleton<TService>(instance));
 
             return collection;
         }
@@ -82,7 +82,7 @@ namespace TinyFactory
             return true;
         }
 
-        internal static bool AllowAddServiceToCollection<TService>(this IFactoryCollection collection, Type imptType)
+        internal static bool AllowAddServiceToCollection<TService>(this IFactoryCollection collection, Type imptType, bool is_instance = false)
         {
             if (collection.IsReadOnly)
                 throw new InvalidOperationException("You cannot add to collection. Factory Collection is read-only");
@@ -90,9 +90,12 @@ namespace TinyFactory
             if (collection.FirstOrDefault(o => o.ServiceType.Equals(typeof(TService))) != null)
                 throw new Exception("This type of service has been registered to the factory before");
 
-            var constructors = imptType.GetConstructors();
-            if (constructors == null || constructors.Length == 0)
-                throw new Exception("This type of service has no public constructors");
+            if (!is_instance)
+            {
+                var constructors = imptType.GetConstructors();
+                if (constructors == null || constructors.Length == 0)
+                    throw new Exception("This type of service has no public constructors");
+            }
 
             return true;
         }
@@ -102,7 +105,7 @@ namespace TinyFactory
             if (collection.IsReadOnly)
                 throw new InvalidOperationException("You cannot add to collection. Factory Collection is read-only");
 
-            if (collection.FirstOrDefault(o => o.ServiceType.Equals(typeof(TService)) || o.ImplementationType.Equals(typeof(TService)) || 
+            if (collection.FirstOrDefault(o => o.ServiceType.Equals(typeof(TService)) || o.ImplementationType.Equals(typeof(TService)) ||
             o.ServiceType.Equals(typeof(TImpl)) || o.ImplementationType.Equals(typeof(TImpl))) != null)
                 throw new Exception("This type of service has been registered to the factory before");
 
