@@ -19,13 +19,18 @@ namespace TinyFactory.Backgrounds
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.Write("SchedulerB: ");
-                Console.ForegroundColor = ConsoleColor.Gray;
-                Console.WriteLine(_source.GetData());
-
+                Print(_source.GetData());
                 await Task.Delay(TimeSpan.FromSeconds(1));
             }
+        }
+
+
+        private void Print(string value)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("SchedulerB (Background):");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.WriteLine(value);
         }
     }
 }

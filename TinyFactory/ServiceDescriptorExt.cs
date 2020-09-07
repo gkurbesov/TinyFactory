@@ -19,9 +19,11 @@ namespace TinyFactory
             switch (descriptor.Lifetime)
             {
                 case ServiceLifetime.Transient:
+                case ServiceLifetime.TransientFirstLoader:
                     return descriptor.GetInstance(provider);
                 case ServiceLifetime.Singleton:
                 case ServiceLifetime.HostedService:
+                case ServiceLifetime.SingletonFirstLoader:
                     return descriptor.ImplementationInstance ??
                         (descriptor.ImplementationInstance = descriptor.GetInstance(provider));
                 default:

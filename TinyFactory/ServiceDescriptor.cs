@@ -25,8 +25,8 @@ namespace TinyFactory
             Lifetime = lifetime;
         }
 
-        public static ServiceDescriptor FirstLoader<TService>() where TService : class =>
-            new ServiceDescriptor(typeof(TService), ServiceLifetime.FirstLoader);
+        public static ServiceDescriptor FirstLoader<TService>(bool singleton = true) where TService : class =>
+            new ServiceDescriptor(typeof(TService), singleton ? ServiceLifetime.SingletonFirstLoader : ServiceLifetime.TransientFirstLoader);
 
         public static ServiceDescriptor Singleton<TService>() where TService : class =>
             new ServiceDescriptor(typeof(TService), ServiceLifetime.Singleton);

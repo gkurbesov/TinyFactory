@@ -25,7 +25,7 @@ namespace TinyFactory
         }
         private Task StartHostedServices()
         {
-            var descriptors = collections.Where(o => o.Lifetime == ServiceLifetime.HostedService);
+            var descriptors = collections.Where(o => o.Lifetime == ServiceLifetime.HostedService || o.Lifetime == ServiceLifetime.TransientFirstLoader);
             foreach (var descriptor in descriptors)
             {
                 var instance = descriptor.Resolve(this);
@@ -38,7 +38,7 @@ namespace TinyFactory
         }
         private Task StartFirstLoaders()
         {
-            var descriptors = collections.Where(o => o.Lifetime == ServiceLifetime.FirstLoader);
+            var descriptors = collections.Where(o => o.Lifetime == ServiceLifetime.SingletonFirstLoader);
             foreach (var descriptor in descriptors)
                 descriptor.Resolve(this);
             return Task.CompletedTask;
