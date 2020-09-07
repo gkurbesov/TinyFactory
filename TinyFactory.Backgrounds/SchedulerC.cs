@@ -10,18 +10,28 @@ namespace TinyFactory.Backgrounds
     {
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+            Print("start");
             await DoWork();
-
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.Write("SchedulerC: ");
-            Console.ForegroundColor = ConsoleColor.Gray;
-            Console.WriteLine($"completed");
+            Print("completed");            
         }
 
-        private async Task DoWork()
+        private Task DoWork()
         {
             /// long job...
-            await Task.Delay(TimeSpan.FromSeconds(10));
+            int sum = 0;
+            while(sum < int.MaxValue)
+            {
+                sum++;
+            }
+            return Task.CompletedTask;
+        }
+
+        private void Print(string value)
+        {
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write("SchedulerC (Background):");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.WriteLine(value);
         }
     }
 }

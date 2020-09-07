@@ -14,13 +14,29 @@ namespace TinyFactory.Backgrounds
 
         protected override async Task<bool> ExecuteAsync(CancellationToken stoppingToken)
         {
-            count = count + 1;
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write("SchedulerA: ");
-            Console.ForegroundColor = ConsoleColor.Gray;
-            Console.WriteLine($"count = {count}");
+            if (FirstDelay)
+            {
+                Print("First delay 1 sec.");
+                await TakeFirstDelay(1000);
+            }
 
-            return count < 10;
+            count = count + 1;
+            Print($"count = {count}");
+
+            var result = count < 10;
+            if (!result)
+            {
+                Print("End task");
+            }
+            return result;
+        }
+
+        private void Print(string value)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("SchedulerA (Loop):");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.WriteLine(value);
         }
     }
 }

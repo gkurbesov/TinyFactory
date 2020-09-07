@@ -7,10 +7,10 @@ namespace TinyFactory
 {
     public static class FactoryCollectionExt
     {
-        public static IFactoryCollection AddFirstLoader<TService>(this IFactoryCollection collection) where TService : class
+        public static IFactoryCollection AddFirstLoader<TService>(this IFactoryCollection collection, bool singleton = true) where TService : class
         {
             if (collection.AllowAddServiceToCollection<TService>())
-                collection.Add(ServiceDescriptor.FirstLoader<TService>());
+                collection.Add(ServiceDescriptor.FirstLoader<TService>(singleton));
             return collection;
         }
 
