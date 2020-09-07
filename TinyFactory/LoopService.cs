@@ -11,8 +11,18 @@ namespace TinyFactory
         private Task _executingTask;
         private readonly CancellationTokenSource _stoppingCts = new CancellationTokenSource();
         protected abstract TimeSpan LoopDelay { get; set; }
+        public bool FirstDelay { get; private set; } = true;
 
         protected abstract Task<bool> ExecuteAsync(CancellationToken stoppingToken);
+
+        protected async Task TakeFirstDelay(int ms)
+        {
+            if (FirstDelay)
+            {
+                await Task.Delay(ms);
+                FirstDelay = false;
+            }
+        }
 
         private async Task StartLoop(CancellationToken cancellationToken)
         {
@@ -28,7 +38,7 @@ namespace TinyFactory
 
         public virtual Task StartAsync(CancellationToken cancellationToken)
         {
-            _executingTask = StartLoop(cancellationToken);
+            _executingTask = StartLoop(_stoppingCts.Token);
             if (_executingTask.IsCompleted)
                 return _executingTask;
             return Task.CompletedTask;
