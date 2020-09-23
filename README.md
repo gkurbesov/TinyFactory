@@ -2,8 +2,11 @@
 <p align="center">
     <img src="./Assets/logo.png">
 </p>
-Small and simple factory. TinyFactory is ready to store and create instances of simple classes that have no dependencies in the constructor.
+Small and simple factory. TinyFactory is ready to store and instantiate simple classes.
+
 This factory can create new instances of classes or store their references to them.
+
+TinyFactory knows how to inject dependencies through the constructor
 
 
 [![Build status](https://ci.appveyor.com/api/projects/status/nvc5fkh3ua9j0mve?svg=true)](https://ci.appveyor.com/project/gkurbesov/tinyfactory)
@@ -15,12 +18,15 @@ public class Factory : TinyFactory
 {
     private static Factory _instace;
     private static object locker = new object();
-    private  Factory()
+    private Factory() : base() { }
+
+    protected override void ConfigureFactory(IFactoryCollection collection)
     {
-        Singleton(new UserClass("John"));
+        collection.AddSingleton<IRepository, UserRepository>();
+        collection.AddTransient<IRepositoryConfig, Config>();
     }
 
-    private static Factory GetFactory()
+    public static Factory GetFactory()
     {
         lock(locker)
         {
@@ -30,13 +36,13 @@ public class Factory : TinyFactory
     }
 
     public static T Resolve<T>() where T: class => GetFactory().Get<T>();
+
 }
 ```
 
 And using this class in your code:
 ```C#
-var user = Factory.Resolve<UserClass>();
-Console.WriteLine($"User name: {user.Name}");
+var repo = Factory.Resolve<IRepository>();
 ```
 
 See more in demo project
