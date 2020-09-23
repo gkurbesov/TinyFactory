@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 
 namespace TinyFactory
 {
@@ -40,10 +39,10 @@ namespace TinyFactory
         public static object GetInstance(this ServiceDescriptor descriptor, IFactoryProvider provider)
         {
             ConstructorInfo item = descriptor.ImplementationType.GetConstructors().FirstOrDefault(o => o.IsPublic && !o.IsStatic);
-            if(item != null)
+            if (item != null)
             {
                 List<object> args = new List<object>();
-                foreach(var attr in item.GetParameters())
+                foreach (var attr in item.GetParameters())
                 {
                     var attr_type = attr.ParameterType;
                     args.Add(provider.Get(attr_type) ?? attr.DefaultValue);

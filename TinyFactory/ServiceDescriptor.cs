@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace TinyFactory
 {
@@ -31,7 +29,7 @@ namespace TinyFactory
         public static ServiceDescriptor Singleton<TService>() where TService : class =>
             new ServiceDescriptor(typeof(TService), ServiceLifetime.Singleton);
 
-        public static ServiceDescriptor Singleton<TService, TImpl>() where TService : class where TImpl: class, TService =>
+        public static ServiceDescriptor Singleton<TService, TImpl>() where TService : class where TImpl : class, TService =>
             new ServiceDescriptor(typeof(TService), typeof(TImpl), ServiceLifetime.Singleton);
 
         public static ServiceDescriptor Singleton<TService>(object value) where TService : class =>
