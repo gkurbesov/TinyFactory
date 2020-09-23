@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -13,14 +11,14 @@ namespace TinyFactory
 
         protected abstract Task ExecuteAsync(CancellationToken stoppingToken);
 
-        public virtual  Task StartAsync(CancellationToken cancellationToken)
+        public virtual Task StartAsync(CancellationToken cancellationToken)
         {
             _executingTask = ExecuteAsync(_stoppingCts.Token);
             if (_executingTask.IsCompleted)
                 return _executingTask;
             return Task.CompletedTask;
         }
-        
+
         public virtual async Task StopAsync(CancellationToken cancellationToken)
         {
             if (_executingTask == null) return;

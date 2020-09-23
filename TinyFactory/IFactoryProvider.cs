@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace TinyFactory
 {
@@ -14,7 +12,7 @@ namespace TinyFactory
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        T Get<T>() where T: class;
+        T Get<T>() where T : class;
         /// <summary>
         /// Get type instance from factory
         /// </summary>

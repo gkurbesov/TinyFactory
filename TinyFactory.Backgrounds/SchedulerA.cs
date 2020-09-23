@@ -10,7 +10,7 @@ namespace TinyFactory.Backgrounds
     {
         private int count = 0;
 
-        protected override TimeSpan LoopDelay { get; set; } = TimeSpan.FromSeconds(2.5);
+        protected override TimeSpan LoopDelay { get; set; } = TimeSpan.FromSeconds(2.33);
 
         protected override async Task<bool> ExecuteAsync(CancellationToken stoppingToken)
         {

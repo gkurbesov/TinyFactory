@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 
 namespace TinyFactory
 {
@@ -53,9 +51,9 @@ namespace TinyFactory
             collection.GetEnumerator();
 
         public bool Remove(ServiceDescriptor item) =>
-            !IsReadOnly? collection.Remove(item) : false;
+            !IsReadOnly ? collection.Remove(item) : false;
 
-        IEnumerator IEnumerable.GetEnumerator() => 
+        IEnumerator IEnumerable.GetEnumerator() =>
             collection.GetEnumerator();
         #endregion
     }
