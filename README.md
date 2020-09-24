@@ -10,7 +10,7 @@ TinyFactory knows how to inject dependencies through the constructor
 
 
 [![Build status](https://ci.appveyor.com/api/projects/status/nvc5fkh3ua9j0mve?svg=true)](https://ci.appveyor.com/project/gkurbesov/tinyfactory)
-
+[![Nuget](https://img.shields.io/nuget/v/TinyFactory)](https://www.nuget.org/packages/TinyFactory)
 ## Quick start
 Create your a class factory and extend from `TinyFactory`:
 ```C#
