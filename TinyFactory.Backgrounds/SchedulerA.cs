@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using TinyFactory.Background;
 
 namespace TinyFactory.Backgrounds
 {
@@ -18,14 +19,14 @@ namespace TinyFactory.Backgrounds
             {
                 Print("First delay 1 sec.");
                 await TakeFirstDelay(1000);
-            }
-
+            }            
             count = count + 1;
             Print($"count = {count}");
-
-            var result = count < 10;
+            var result = count < 3;
             if (!result)
             {
+                // Exaple exceptions in LoopService
+                //throw new Exception("Exception in background, SchedulerA (LoopService)");
                 Print("End task");
             }
             return result;

@@ -7,6 +7,7 @@ namespace TinyFactory
     /// </summary>
     public interface IFactoryProvider
     {
+        bool ThrowNotExist { get;}
         /// <summary>
         /// Get type instance from factory
         /// </summary>

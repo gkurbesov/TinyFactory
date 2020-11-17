@@ -1,4 +1,5 @@
 ﻿using System;
+using TinyFactory.Background;
 
 namespace TinyFactory
 {

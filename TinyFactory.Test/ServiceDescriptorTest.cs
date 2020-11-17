@@ -10,6 +10,8 @@ namespace TinyFactory.Test
     {
         class MockProvider : IFactoryProvider
         {
+            public bool ThrowNotExist => false;
+
             public T Get<T>() where T : class
             {
                 throw new NotImplementedException();

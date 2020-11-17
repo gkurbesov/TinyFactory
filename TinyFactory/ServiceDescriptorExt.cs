@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using TinyFactory.Exceptions;
 
 namespace TinyFactory
 {
@@ -54,7 +55,10 @@ namespace TinyFactory
             }
             else
             {
-                return null;
+                if (provider.ThrowNotExist) 
+                    throw new FactoryConfigurationException($"Implementation {descriptor.ImplementationType.Name} not have public constructors");
+                else
+                    return default;
             }
         }
     }

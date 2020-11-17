@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using TinyFactory.Background;
 
 namespace TinyFactory.Backgrounds
 {
@@ -19,8 +20,8 @@ namespace TinyFactory.Backgrounds
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                Print(_source.GetData());
                 await Task.Delay(TimeSpan.FromSeconds(1));
+                Print(_source.GetData());
             }
         }
 

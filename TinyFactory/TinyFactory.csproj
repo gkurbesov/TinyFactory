@@ -3,6 +3,24 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Version>1.1.2</Version>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Gennady Kurbesov</Authors>
+    <Company>Gennady Kurbesov</Company>
+    <Description>Small and simple factory. TinyFactory is ready to store and instantiate simple classes.
+This factory can create new instances of classes or store their references to them.</Description>
+    <PackageProjectUrl>https://github.com/gkurbesov/TinyFactory</PackageProjectUrl>
+    <PackageIconUrl>https://github.com/gkurbesov/TinyFactory/raw/master/Assets/logo.png</PackageIconUrl>
+    <RepositoryUrl>https://github.com/gkurbesov/TinyFactory</RepositoryUrl>
+    <PackageTags>dependencyinjection, di, ioc, background work</PackageTags>
+    <PackageLicenseExpression></PackageLicenseExpression>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>

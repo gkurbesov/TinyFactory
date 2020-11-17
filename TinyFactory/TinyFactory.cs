@@ -2,6 +2,8 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using TinyFactory.Background;
+using TinyFactory.Exceptions;
 
 namespace TinyFactory
 {
@@ -12,8 +14,12 @@ namespace TinyFactory
     {
         private readonly IFactoryCollection collections;
         private readonly CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-        public TinyFactory()
+
+        public bool ThrowNotExist { get; private set; } = false;
+
+        public TinyFactory(bool throwIfNotExist = false)
         {
+            ThrowNotExist = throwIfNotExist;
             collections = new FactoryCollection();
 
             ConfigureFactory(collections);
@@ -22,31 +28,33 @@ namespace TinyFactory
             StartFirstLoaders();
             StartHostedServices();
         }
-        private Task StartHostedServices()
+        
+        private void StartHostedServices()
         {
-            var descriptors = collections.Where(o => o.Lifetime == ServiceLifetime.HostedService || o.Lifetime == ServiceLifetime.TransientFirstLoader);
+            var descriptors = collections.Where(o => o.Lifetime == ServiceLifetime.HostedService);
             foreach (var descriptor in descriptors)
             {
                 var instance = descriptor.Resolve(this);
                 if (instance is IHostedService service)
                 {
-                    service.StartAsync(cancellationTokenSource.Token);
+                    service.StartAsync(cancellationTokenSource.Token).ConfigureAwait(false);
                 }
             }
-            return Task.CompletedTask;
         }
-        private Task StartFirstLoaders()
+
+        private void StartFirstLoaders()
         {
             var descriptors = collections.Where(o => o.Lifetime == ServiceLifetime.SingletonFirstLoader);
             foreach (var descriptor in descriptors)
                 descriptor.Resolve(this);
-            return Task.CompletedTask;
         }
+
         /// <summary>
         /// Factory configuration method
         /// </summary>
         /// <param name="collection"></param>
         protected abstract void ConfigureFactory(IFactoryCollection collection);
+
         /// <summary>
         /// Get type instance from factory
         /// </summary>
@@ -54,6 +62,7 @@ namespace TinyFactory
         /// <returns></returns>
         public T Get<T>() where T : class =>
             (T)Get(typeof(T));
+
         /// <summary>
         /// Get type instance from factory
         /// </summary>
@@ -62,10 +71,13 @@ namespace TinyFactory
         public object Get(Type type)
         {
             if (!collections.IsBuild)
-                throw new Exception("TinyFactory is not configured");
+                throw new FactoryConfigurationException("TinyFactory is not configured");
             var descriptor = collections.FirstOrDefault(o => o.ImplementationType.Equals(type) || o.ServiceType.Equals(type));
+            if (ThrowNotExist && descriptor == null)
+                throw new FactoryConfigurationException($"Unknown parameter type ({type.Name})");
             return descriptor?.Resolve(this);
         }
+
         #region deprecated
         /// <summary>
         /// Puts objects in a dictionary

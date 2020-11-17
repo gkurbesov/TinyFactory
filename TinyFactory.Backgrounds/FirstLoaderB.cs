@@ -10,6 +10,8 @@ namespace TinyFactory.Backgrounds
         {
             Print("Call constructor");
             Print($"{data.GetData()}");
+            // Exaple exceptions in first loaders
+            //throw new Exception("first loader text exception");
         }
 
         private void Print(string value)
