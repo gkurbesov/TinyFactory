@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 
-namespace TinyFactory
+namespace TinyFactory.Background
 {
     public interface IHostedService
     {

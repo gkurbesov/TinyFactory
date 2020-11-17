@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using TinyFactory.Exceptions;
 
-namespace TinyFactory
+namespace TinyFactory.Background
 {
     public abstract class BackgroundService : IHostedService, IDisposable
     {
@@ -14,6 +15,13 @@ namespace TinyFactory
         public virtual Task StartAsync(CancellationToken cancellationToken)
         {
             _executingTask = ExecuteAsync(_stoppingCts.Token);
+            _executingTask.ConfigureAwait(false);
+            _executingTask.ContinueWith(tsk =>
+            {
+                if (tsk.IsFaulted)
+                    throw new ExecutingBackgroundException(tsk.Exception.Message,
+                        tsk.Exception.InnerException);
+            });
             if (_executingTask.IsCompleted)
                 return _executingTask;
             return Task.CompletedTask;

@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using TinyFactory.Exceptions;
 
-namespace TinyFactory
+namespace TinyFactory.Background
 {
     public abstract class LoopService : IHostedService, IDisposable
     {
@@ -17,7 +18,7 @@ namespace TinyFactory
         {
             if (FirstDelay)
             {
-                await Task.Delay(ms);
+                await Task.Delay(ms).ConfigureAwait(false);
                 FirstDelay = false;
             }
         }
@@ -28,15 +29,22 @@ namespace TinyFactory
 
             while (!cancellationToken.IsCancellationRequested && !token.IsCancellationRequested)
             {
-                if (!await ExecuteAsync(token))
+                if (!await ExecuteAsync(token).ConfigureAwait(false))
                     break;
-                await Task.Delay(LoopDelay);
+                await Task.Delay(LoopDelay).ConfigureAwait(false);
             }
         }
 
         public virtual Task StartAsync(CancellationToken cancellationToken)
         {
             _executingTask = StartLoop(_stoppingCts.Token);
+            _executingTask.ConfigureAwait(false);
+            _executingTask.ContinueWith(tsk =>
+            {
+                if (tsk.IsFaulted)
+                    throw new ExecutingBackgroundException(tsk.Exception.Message,
+                        tsk.Exception.InnerException);
+            });
             if (_executingTask.IsCompleted)
                 return _executingTask;
             return Task.CompletedTask;
@@ -51,7 +59,7 @@ namespace TinyFactory
             }
             finally
             {
-                await Task.WhenAny(_executingTask, Task.Delay(Timeout.Infinite, cancellationToken));
+                await Task.WhenAny(_executingTask, Task.Delay(Timeout.Infinite, cancellationToken)).ConfigureAwait(false);
             }
         }
 
