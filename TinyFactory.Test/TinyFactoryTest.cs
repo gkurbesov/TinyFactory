@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using TinyFactory.Exceptions;
 using TinyFactory.Test.Example;
 using Xunit;
 
@@ -9,6 +10,9 @@ namespace TinyFactory.Test
 {
     public class TinyFactoryTest : TinyFactory
     {
+
+        public TinyFactoryTest() : base(true) { }
+
         protected override void ConfigureFactory(IFactoryCollection collection)
         {
             collection.AddSingleton<InterfaceA, ClassA>();
@@ -30,6 +34,15 @@ namespace TinyFactory.Test
             Assert.Equal(a.Value, b1.class_a.Value);
             Assert.NotEqual(b1, b2);
             Assert.NotEqual(b1.Time, b2.Time);
+        }
+
+        [Fact]
+        public void Test2()
+        {
+            Assert.Throws<FactoryConfigurationException>(() =>
+            {
+                Get<InterfaceC>();
+            });
         }
     }
 }

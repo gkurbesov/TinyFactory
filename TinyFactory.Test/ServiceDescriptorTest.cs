@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using TinyFactory.Exceptions;
 using TinyFactory.Test.Example;
 using Xunit;
 
@@ -10,7 +11,7 @@ namespace TinyFactory.Test
     {
         class MockProvider : IFactoryProvider
         {
-            public bool ThrowNotExist => false;
+            public bool ThrowNotExist { get; set; } = false;
 
             public T Get<T>() where T : class
             {
@@ -23,10 +24,8 @@ namespace TinyFactory.Test
             }
         }
 
-
-
         [Fact]
-        public void GetInstanceTest()
+        public void GetInstanceTest1()
         {
             var descriptor = ServiceDescriptor.Singleton<ClassA>();
 
@@ -34,6 +33,20 @@ namespace TinyFactory.Test
 
             Assert.NotNull(a);
             Assert.Equal(typeof(ClassA), a.GetType());
+        }
+
+        [Fact]
+        public void GetInstanceTest2()
+        {
+            var provider = new MockProvider();
+            provider.ThrowNotExist = true;
+
+            var descriptor = ServiceDescriptor.Singleton<ClassC>();
+
+            Assert.Throws<FactoryConfigurationException>(() =>
+            {
+                descriptor.GetInstance(provider);
+            });
         }
 
         [Fact]
