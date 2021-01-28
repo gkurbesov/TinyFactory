@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Linq;
 using TinyFactory.Background;
+using TinyFactory.FirstLoader;
 
 namespace TinyFactory
 {
     public static class FactoryCollectionExt
     {
-        public static IFactoryCollection AddFirstLoader<TService>(this IFactoryCollection collection, bool singleton = true) where TService : class
+        public static IFactoryCollection AddFirstLoader<TService>(this IFactoryCollection collection, bool singleton = true) where TService : class, IFirstLoader
         {
             if (collection.AllowAddServiceToCollection<TService>())
                 collection.Add(ServiceDescriptor.FirstLoader<TService>(singleton));
@@ -87,7 +88,7 @@ namespace TinyFactory
             return true;
         }
 
-        internal static bool AllowAddServiceToCollection<TService>(this IFactoryCollection collection, Type imptType, bool is_instance = false)
+        internal static bool AllowAddServiceToCollection<TService>(this IFactoryCollection collection, Type imptType, bool isInstance = false)
         {
             if (collection.IsReadOnly)
                 throw new InvalidOperationException("You cannot add to collection. Factory Collection is read-only");
@@ -95,7 +96,7 @@ namespace TinyFactory
             if (collection.FirstOrDefault(o => o.ServiceType.Equals(typeof(TService))) != null)
                 throw new Exception("This type of service has been registered to the factory before");
 
-            if (!is_instance)
+            if (!isInstance)
             {
                 var constructors = imptType.GetConstructors();
                 if (constructors == null || constructors.Length == 0)
