@@ -14,7 +14,7 @@ TinyFactory knows how to inject dependencies through the constructor
 ## Quick start
 Create your a class factory and extend from `TinyFactory`:
 ```C#
-public class Factory : TinyFactory
+public class Factory : TinyFactoryService
 {
     private static Factory _instace;
     private static object locker = new object();
