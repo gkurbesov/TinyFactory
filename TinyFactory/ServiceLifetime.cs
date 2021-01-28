@@ -1,12 +1,11 @@
 ﻿namespace TinyFactory
 {
-    public enum ServiceLifetime
+    public enum ServiceLifetime : byte
     {
         Singleton = 0x01,
         Transient = 0x02,
         HostedService = 0x03,
-        BroadcastService = 0x04,
-        SingletonFirstLoader = 0x05,
-        TransientFirstLoader = 0x06,
+        SingletonFirstLoader = 0x04,
+        TransientFirstLoader = 0x05,
     }
 }
