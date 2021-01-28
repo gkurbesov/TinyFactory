@@ -14,6 +14,7 @@ namespace TinyFactory.Background
 
         public virtual Task StartAsync(CancellationToken cancellationToken)
         {
+            cancellationToken.Register(async () => { await StopAsync(default); });
             _executingTask = ExecuteAsync(_stoppingCts.Token);
             _executingTask.ConfigureAwait(false);
             _executingTask.ContinueWith(tsk =>

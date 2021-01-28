@@ -14,11 +14,14 @@ namespace TinyFactory.Background
 
         protected abstract Task<bool> ExecuteAsync(CancellationToken stoppingToken);
 
-        protected async Task TakeFirstDelay(int ms)
+        protected async Task TakeFirstDelay(int ms) =>
+            await TakeFirstDelay(TimeSpan.FromMilliseconds(ms));
+
+        protected async Task TakeFirstDelay(TimeSpan time)
         {
             if (FirstDelay)
             {
-                await Task.Delay(ms).ConfigureAwait(false);
+                await Task.Delay(time).ConfigureAwait(false);
                 FirstDelay = false;
             }
         }
@@ -26,7 +29,6 @@ namespace TinyFactory.Background
         private async Task StartLoop(CancellationToken cancellationToken)
         {
             var token = _stoppingCts.Token;
-
             while (!cancellationToken.IsCancellationRequested && !token.IsCancellationRequested)
             {
                 if (!await ExecuteAsync(token).ConfigureAwait(false))
@@ -37,6 +39,7 @@ namespace TinyFactory.Background
 
         public virtual Task StartAsync(CancellationToken cancellationToken)
         {
+            cancellationToken.Register(async () => { await StopAsync(default); });
             _executingTask = StartLoop(_stoppingCts.Token);
             _executingTask.ConfigureAwait(false);
             _executingTask.ContinueWith(tsk =>
