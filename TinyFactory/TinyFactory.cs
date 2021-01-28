@@ -44,7 +44,7 @@ namespace TinyFactory
 
         private void StartFirstLoaders()
         {
-            var descriptors = collections.Where(o => o.Lifetime == ServiceLifetime.SingletonFirstLoader);
+            var descriptors = collections.Where(o => o.Lifetime == ServiceLifetime.SingletonFirstLoader || o.Lifetime == ServiceLifetime.TransientFirstLoader);
             foreach (var descriptor in descriptors)
                 descriptor.Resolve(this);
         }

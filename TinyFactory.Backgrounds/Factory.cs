@@ -19,7 +19,7 @@ namespace TinyFactory.Backgrounds
 
             // called in order of addition, does not expect an injection procedure
             collection.AddFirstLoader<FirstLoaderA>();
-            collection.AddFirstLoader<FirstLoaderB>();
+            collection.AddFirstLoader<FirstLoaderB>(false);
 
         }
     }
