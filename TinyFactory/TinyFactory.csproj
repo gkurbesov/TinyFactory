@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>1.1.3</Version>
+    <Version>1.2.0</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Gennady Kurbesov</Authors>
     <Company>Gennady Kurbesov</Company>
@@ -11,7 +11,7 @@ This factory can create new instances of classes or store their references to th
     <PackageProjectUrl>https://github.com/gkurbesov/TinyFactory</PackageProjectUrl>
     <PackageIconUrl>https://github.com/gkurbesov/TinyFactory/raw/master/Assets/logo.png</PackageIconUrl>
     <RepositoryUrl>https://github.com/gkurbesov/TinyFactory</RepositoryUrl>
-    <PackageTags>dependencyinjection, di, ioc, background work</PackageTags>
+    <PackageTags>dependency, injection, di, ioc, background work</PackageTags>
     <PackageLicenseExpression></PackageLicenseExpression>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
