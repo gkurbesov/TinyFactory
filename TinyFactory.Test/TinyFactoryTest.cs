@@ -8,7 +8,7 @@ using Xunit;
 
 namespace TinyFactory.Test
 {
-    public class TinyFactoryTest : TinyFactory
+    public class TinyFactoryTest : TinyFactoryService
     {
 
         public TinyFactoryTest() : base(true) { }

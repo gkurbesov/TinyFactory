@@ -5,7 +5,7 @@ using TinyFactory.Demo.Example;
 
 namespace TinyFactory.Demo
 {
-    public class Factory : TinyFactory
+    public class Factory : TinyFactoryService
     {
         private static Factory _instace;
         private static object locker = new object();

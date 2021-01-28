@@ -1,23 +1,25 @@
 ﻿using System;
 using System.Linq;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using TinyFactory.Background;
 using TinyFactory.Exceptions;
+using TinyFactory.FirstLoader;
 
 namespace TinyFactory
 {
     /// <summary>
     ///  TinyFactory container
     /// </summary>
-    public abstract class TinyFactory : IFactoryProvider
+    public abstract class TinyFactoryService : IFactoryProvider
     {
         private readonly IFactoryCollection collections;
         private readonly CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
 
         public bool ThrowNotExist { get; private set; } = false;
 
-        public TinyFactory(bool throwIfNotExist = false)
+        public TinyFactoryService(bool throwIfNotExist = false)
         {
             ThrowNotExist = throwIfNotExist;
             collections = new FactoryCollection();
@@ -28,7 +30,10 @@ namespace TinyFactory
             StartFirstLoaders();
             StartHostedServices();
         }
-        
+
+        /// <summary>
+        /// Loads and execute sequentially the Hosted Services
+        /// </summary>
         private void StartHostedServices()
         {
             var descriptors = collections.Where(o => o.Lifetime == ServiceLifetime.HostedService);
@@ -36,17 +41,23 @@ namespace TinyFactory
             {
                 var instance = descriptor.Resolve(this);
                 if (instance is IHostedService service)
-                {
-                    service.StartAsync(cancellationTokenSource.Token).ConfigureAwait(false);
-                }
+                    service.StartAsync(cancellationTokenSource.Token)
+                        .ConfigureAwait(false);
             }
         }
 
+        /// <summary>
+        /// Loads and calls sequentially the First Loaders
+        /// </summary>
         private void StartFirstLoaders()
         {
             var descriptors = collections.Where(o => o.Lifetime == ServiceLifetime.SingletonFirstLoader || o.Lifetime == ServiceLifetime.TransientFirstLoader);
             foreach (var descriptor in descriptors)
-                descriptor.Resolve(this);
+            {
+                var instance = descriptor.Resolve(this);
+                if (instance is IFirstLoader loader)
+                    loader.Execute();
+            }
         }
 
         /// <summary>
@@ -77,41 +88,5 @@ namespace TinyFactory
                 throw new FactoryConfigurationException($"Unknown parameter type ({type.Name})");
             return descriptor?.Resolve(this);
         }
-
-        #region deprecated
-        /// <summary>
-        /// Puts objects in a dictionary
-        /// </summary>
-        /// <param name="type"></param>
-        /// <param name="obj"></param>
-        /// <param name="rebuild"></param>
-        [Obsolete("AddToValues ​​is deprecated, please override and use FactoryConfigure", true)]
-        private void AddToValues(Type type, object obj, bool rebuild) { }
-        /// <summary>
-        /// Registers a class type. This type of class will be recreated with every resolve.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        [Obsolete("Register<T> ​​is deprecated, please override and use FactoryConfigure", true)]
-        protected void Register<T>() where T : class { }
-        /// <summary>
-        ///  Registers a class type as singleton
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        [Obsolete("Singleton<T> ​​is deprecated, please override and use FactoryConfigure", true)]
-        protected void Singleton<T>() where T : class { }
-        /// <summary>
-        /// Registers object as singleton
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="value"></param>
-        [Obsolete("Singleton<T>(T value) ​​is deprecated, please override and use FactoryConfigure", true)]
-        protected void Singleton<T>(T value) where T : class { }
-        /// <summary>
-        /// Removes a type or instance from the factory.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        [Obsolete("Remove ​​is deprecated", true)]
-        protected void Remove<T>() { }
-        #endregion
     }
 }
