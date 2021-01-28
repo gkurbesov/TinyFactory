@@ -116,5 +116,33 @@ namespace TinyFactory.Test
             Assert.Equal(typeof(InterfaceA), a.ServiceType);
             Assert.Equal(typeof(ClassA), a.ImplementationType);
         }
+
+        [Fact]
+        public void AddFirstLoader1()
+        {
+            IFactoryCollection collection = new FactoryCollection();
+            collection.AddFirstLoader<ClassD>();
+
+            var a = collection.FirstOrDefault(o => o.ImplementationType.Equals(typeof(ClassD)));
+
+            Assert.NotNull(a);
+            Assert.Equal(ServiceLifetime.SingletonFirstLoader, a.Lifetime);
+            Assert.Equal(typeof(ClassD), a.ServiceType);
+            Assert.Equal(typeof(ClassD), a.ImplementationType);
+        }
+
+        [Fact]
+        public void AddFirstLoader2()
+        {
+            IFactoryCollection collection = new FactoryCollection();
+            collection.AddFirstLoader<ClassD>(false);
+
+            var a = collection.FirstOrDefault(o => o.ImplementationType.Equals(typeof(ClassD)));
+
+            Assert.NotNull(a);
+            Assert.Equal(ServiceLifetime.TransientFirstLoader, a.Lifetime);
+            Assert.Equal(typeof(ClassD), a.ServiceType);
+            Assert.Equal(typeof(ClassD), a.ImplementationType);
+        }
     }
 }
